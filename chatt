@@ -1,0 +1,53 @@
+#include <SoftwareSerial.h>
+SoftwareSerial mySerial(10,11);
+int count = 0;
+int count1 =0;
+void setup()
+{
+ Serial.begin(4800);
+  Serial.println("Hello World");
+  mySerial.begin(4800);
+}
+
+void loop()
+{
+ //while(Serial.available())
+  //{
+   // char inChar = (char)Serial.read();
+   //mySerial.print((char)Serial.read());
+  // Serial.print(inChar);
+  //}
+   if (mySerial.available()) {
+    count++;
+     if(count == 1){
+          Serial.print("B: ");
+      }
+    String receivedMessage = "";
+    while (mySerial.available()) {
+      char c = mySerial.read();
+      receivedMessage += c;
+    }
+    Serial.print(receivedMessage);
+    count = 0;
+  }
+  //while(mySerial.available()){
+   // char inChar = (char)mySerial.read();
+   //Serial.print((char)mySerial.read());
+   //Serial.print(inChar);
+  //}
+  if (Serial.available()) {
+    count1++;
+    if(count1 == 1){
+          mySerial.print("Me: ");
+      }
+  String receivedMessage = "";
+    while (Serial.available()) {
+      char c = Serial.read();
+      receivedMessage += c;
+    }
+    mySerial.print(receivedMessage);
+    delay(2);
+    Serial.print(receivedMessage);
+  }
+}
+ 
